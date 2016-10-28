@@ -1,0 +1,39 @@
+﻿@model Homework3.Models.QuestionsList.Question
+
+@{
+    ViewBag.Title = "Questions";
+}
+<h2>@ViewBag.Title:</h2>
+<h3>@Html.ValueFor(model => model.ValidationMessage)</h3>
+
+<div>
+    @if (Model != null && !string.IsNullOrEmpty(Model.QuestionBody))
+    {
+        using (Html.BeginForm("Questions", "Home", FormMethod.Post))
+        {
+            var id = @Model.QuestionId;
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.QuestionBody, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.ValueFor(model => model.QuestionBody)
+                <br />
+                @foreach (var answer in Model.Answers)
+                {
+                    @Html.RadioButtonFor(model => model.SelectedAnswer, answer.AnswerId) <span> </span>
+                    @Html.Label(answer.AnswerBody)<span>    </span>
+                }
+                <br />
+                <br />
+                <button type="submit" class="btn btn-default">Submit</button>
+
+
+
+            </div>
+
+            @Html.HiddenFor(model => Model.QuestionId)
+            Model.QuestionId = id;
+            @Html.HiddenFor(model => Model.NumberOfAttempts)
+        }
+    }
+   
+</div>

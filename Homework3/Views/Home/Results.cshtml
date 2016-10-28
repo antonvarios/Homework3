@@ -1,0 +1,34 @@
+﻿@model Homework3.Models.PersonViewModel
+
+@{
+    ViewBag.Title = "Results";
+}
+<h2>@ViewBag.Title.</h2>
+<h3>@ViewBag.Message</h3>
+
+<p>Here are your individual statistics:</p>
+
+
+<br />
+@Html.Label("Total Questions answered: ")<span> </span> @Html.ValueFor(model => model.AnsweredQuestions.Count)
+
+<br />
+@if (Model.AnsweredQuestions.Count > 0)
+{
+    int totalAnswers = 0;
+    int totalAttempts = 0;
+    foreach (var val in Model.AnsweredQuestions)
+    {
+        @Html.ValueFor(model => val.QuestionBody)<span> Number of Attmepts: </span>@Html.ValueFor(model => val.NumberOfAttempts)<br />
+        totalAnswers++;
+        totalAttempts += val.NumberOfAttempts;
+    }
+
+    <br />
+    <br />
+    <br />
+    @Html.Label("Total attempted answers: ")<span> </span>@(totalAttempts.ToString())
+    <br />
+    @Html.Label("Total correct answers: ")<span> </span>@(totalAnswers.ToString())
+}
+
